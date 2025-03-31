@@ -12,7 +12,7 @@ const BannerCarousel = () => {
       cta: "Shop now",
       bgColor: "bg-blue-50",
       textColor: "text-blue-900",
-      image: '/images/carousel/ac banner image.webp' // Replace with your image path
+      image: 'https://i.postimg.cc/1R2yHYFs/HP-Rotating-SC-19-Feb2025-uf8bkt.webp' // Replace with your image path
     },
     {
       id: 2,
@@ -28,7 +28,7 @@ const BannerCarousel = () => {
       cta: "Shop now",
       bgColor: "bg-cyan-50",
       textColor: "text-cyan-900",
-      image: "/images/carousel/HP_Rotating_SC_19Feb2025_uf8bkt.webp" // Replace with your image path
+      image: "https://i.postimg.cc/zBP84xPw/ac-banner-image.webp" // Replace with your image path
     },
     {
       id: 3,
