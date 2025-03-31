@@ -51,7 +51,7 @@ const BannerCarousel = () => {
       cta: "Shop now",
       bgColor: "bg-gray-200",
       textColor: "text-gray-900",
-      image: "/images/carousel/iphone banner image.webp" // Replace with your image path
+      image: "https://i.postimg.cc/L5cR8nSn/iphone-banner-image.webp" // Replace with your image path
     },
     {
       id: 5,
