@@ -38,7 +38,7 @@ const BannerCarousel = () => {
       cta: "Shop now",
       bgColor: "bg-gray-100",
       textColor: "text-gray-900",
-      image: "/images/carousel/iphone 16e banner image.webp" // Replace with your image path
+      image: "https://i.postimg.cc/mkzB470v/iphone-16e-banner-image.webp" // Replace with your image path
     },
     {
       id: 4,
@@ -66,7 +66,7 @@ const BannerCarousel = () => {
       cta: "Shop now",
       bgColor: "bg-green-50",
       textColor: "text-green-900",
-      image: "/images/carousel/pixel smart watch banner.webp" // Replace with your image path
+      image: "https://i.postimg.cc/vHnbSL79/pixel-smart-watch-banner.webp" // Replace with your image path
     },
     {
       id: 6,
@@ -75,7 +75,7 @@ const BannerCarousel = () => {
       cta: "Shop now",
       bgColor: "bg-purple-50",
       textColor: "text-purple-900",
-      image: "/images/carousel/speaker banner image.webp" // Replace with your image path
+      image: "https://i.postimg.cc/sgRsFQKL/speaker-banner-image.webp" // Replace with your image path
     },
     {
       id: 7,
@@ -86,7 +86,7 @@ const BannerCarousel = () => {
       cta: "Shop now",
       bgColor: "bg-red-50",
       textColor: "text-red-900",
-      image: "/images/carousel/washing machine banner image.webp" // Replace with your image path
+      image: "https://i.postimg.cc/W16jsNH1/washing-machine-banner-image.webp" // Replace with your image path
     }
   ];
 
