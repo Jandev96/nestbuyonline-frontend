@@ -115,7 +115,7 @@ const BannerCarousel = () => {
   }, [currentSlide]);
 
   return (
-    <div className="relative w-full h-[400px] md:h-[500px] overflow-hidden">
+    <div className="relative w-full h-[300px] sm:h-[400px] md:h-[450px] overflow-hidden">
       {/* Slides container */}
       <div 
         className={`flex h-full transition-transform duration-700 ease-in-out ${transitionEnabled ? '' : 'transition-none'}`}
@@ -124,23 +124,34 @@ const BannerCarousel = () => {
         {banners.map((banner, index) => (
           <div 
             key={banner.id}
-            className={`flex-shrink-0 w-full h-full ${banner.bgColor} ${banner.textColor} relative`}
+            className={`flex-shrink-0 w-full h-full relative`}
           >
-            <div className="container mx-auto h-full flex items-center">
-              {/* Content */}
-              <div className="w-full md:w-1/2 px-6 z-10">
-                {banner.title && <h2 className="text-3xl md:text-4xl font-bold mb-2">{banner.title}</h2>}
-                {banner.subtitle && <h3 className="text-2xl md:text-3xl font-semibold mb-4">{banner.subtitle}</h3>}
-                {banner.period && <p className="text-lg mb-3">{banner.period}</p>}
-                {banner.model && <p className="text-xl font-medium mb-3">{banner.model}</p>}
-                {banner.price && <p className="text-xl md:text-2xl font-bold mb-2">{banner.price}</p>}
-                {banner.offer && <p className="text-sm md:text-base mb-4">{banner.offer}</p>}
-                {banner.discount && <p className="text-2xl font-bold text-red-600 mb-4">{banner.discount}</p>}
+            {/* Mobile Background Image */}
+            <div className="md:hidden absolute inset-0 z-0">
+              <img 
+                src={banner.image} 
+                alt={banner.title}
+                className="w-full h-full object-cover opacity-20"
+              />
+              <div className={`absolute inset-0 ${banner.bgColor} opacity-70`}></div>
+            </div>
+
+            <div className="container mx-auto h-full flex flex-col md:flex-row items-center relative z-10">
+              {/* Content - Always on left */}
+              <div className={`w-full md:w-1/2 px-6 py-8 md:py-0 ${banner.textColor}`}>
+                {banner.brand && <p className="text-sm md:text-base font-medium mb-1">{banner.brand}</p>}
+                {banner.title && <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-1 md:mb-2">{banner.title}</h2>}
+                {banner.subtitle && <h3 className="text-xl md:text-2xl lg:text-3xl font-semibold mb-2 md:mb-4">{banner.subtitle}</h3>}
+                {banner.period && <p className="text-base md:text-lg mb-2 md:mb-3">{banner.period}</p>}
+                {banner.model && <p className="text-lg md:text-xl font-medium mb-2 md:mb-3">{banner.model}</p>}
+                {banner.price && <p className="text-xl md:text-2xl font-bold mb-1 md:mb-2">{banner.price}</p>}
+                {banner.offer && <p className="text-sm md:text-base mb-2 md:mb-4">{banner.offer}</p>}
+                {banner.discount && <p className="text-2xl font-bold text-red-600 mb-2 md:mb-4">{banner.discount}</p>}
                 
                 {banner.highlights && (
                   <ul className="mb-4 space-y-2">
                     {banner.highlights.map((item, i) => (
-                      <li key={i} className="flex items-center">
+                      <li key={i} className="flex items-center text-sm md:text-base">
                         <span className="mr-2">•</span>
                         <span>{item}</span>
                       </li>
@@ -165,7 +176,7 @@ const BannerCarousel = () => {
                 </button>
               </div>
               
-              {/* Image */}
+              {/* Desktop Image - Right Side */}
               <div className="hidden md:block absolute right-0 top-0 h-full w-1/2">
                 <img 
                   src={banner.image} 
