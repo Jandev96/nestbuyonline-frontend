@@ -35,46 +35,36 @@ const DealsOfTheDay = () => {
 
   return (
     <div className="max-w-4xl mx-auto mt-8 px-4 mb-8">
-      <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-6 bg-gray-100 dark:bg-gray-900/50 px-3 py-1 rounded-md inline-block">
-        Deals Of The Day
-      </h2>
+      <h2 className="text-2xl font-bold text-gray-800 mb-6">Deals Of The Day</h2>
       
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {deals.map((deal, index) => (
           <div 
             key={index}
-            className="relative group h-64 transition-all duration-500 ease-in-out hover:scale-105 hover:z-10 hover:shadow-xl rounded-lg overflow-hidden"
+            className="relative group h-64 transition-all duration-300 ease-in-out hover:scale-[1.03] hover:z-10 hover:shadow-lg rounded-lg overflow-hidden border border-gray-200"
           >
-            {/* Background Image */}
-            <div className="absolute inset-0">
-              <img 
-                src={deal.image} 
-                alt={deal.title}
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                loading="lazy"
-              />
-              <div className={`absolute inset-0 bg-gradient-to-r ${deal.gradient} opacity-30 group-hover:opacity-50 transition-opacity duration-500`}></div>
-            </div>
+            {/* Background Image - No gradients */}
+            <img 
+              src={deal.image} 
+              alt={deal.title}
+              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+              loading="lazy"
+            />
             
-            {/* Hover Effects */}
-            <div className={`absolute -inset-1 blur-md opacity-0 group-hover:opacity-30 bg-gradient-to-r ${deal.hoverGradient} transition-opacity duration-500`}></div>
+            {/* Content Overlay - Semi-transparent for readability */}
+            <div className="absolute inset-0 bg-black/10 group-hover:bg-black/20 transition-all duration-300"></div>
             
-            {/* Content */}
-            <div className="relative z-10 h-full flex flex-col justify-between p-4 text-white">
-              <div>
-                {deal.brand && (
-                  <div className="flex items-center mb-1">
-                    <span className="font-bold text-white/90 mr-2">{deal.brand}</span>
-                  </div>
-                )}
-                <h3 className="font-semibold text-lg drop-shadow-md">{deal.title}</h3>
-              </div>
-              
+            {/* Text Content */}
+            <div className="absolute bottom-0 left-0 right-0 p-4 text-white">
               <div className="transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+                {deal.brand && (
+                  <span className="font-bold text-white block mb-1">{deal.brand}</span>
+                )}
+                <h3 className="font-semibold text-lg">{deal.title}</h3>
                 {deal.note ? (
-                  <p className="text-xs text-white/80 italic">{deal.note}</p>
+                  <p className="text-sm text-white/90 mt-1">{deal.note}</p>
                 ) : (
-                  <p className="font-medium text-white/90 drop-shadow-md">{deal.price}</p>
+                  <p className="font-medium text-white mt-1">{deal.price}</p>
                 )}
               </div>
             </div>
