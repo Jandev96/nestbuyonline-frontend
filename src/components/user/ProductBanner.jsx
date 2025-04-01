@@ -4,8 +4,8 @@ const ProductBanner = () => {
   return (
     <div className="relative w-full min-h-[300px] md:h-[400px] bg-white flex flex-col md:flex-row items-center justify-center">
   {/* Text Content Section - Centered with max-width */}
-  <div className="w-full max-w-6xl md:w-1/2 p-6 md:pl-12 lg:pl-16 md:pr-8 text-center md:text-left flex flex-col items-center md:items-start">
-    <p className="text-[#555] text-sm md:text-lg font-medium mb-2 md:mb-3">Our New Favourites</p>
+  <div className="w-full ps-20 pe-20 max-w-xl md:w-1/2 p-6 md:pl-12 lg:pl-16 md:pr-8 text-center md:text-left flex flex-col items-center md:items-start">
+    <p className="text-[#555] text-sm md:text-lg font-medium  mb-2 md:mb-3">Our New Favourites</p>
     <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-black mb-1">Snapdragon</h1>
     <h2 className="text-2xl sm:text-3xl md:text-4xl font-normal text-black mb-4 md:mb-6">x Series</h2>
     

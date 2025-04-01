@@ -115,107 +115,97 @@ const BannerCarousel = () => {
   }, [currentSlide]);
 
   return (
-    <div className="relative w-full h-[300px] sm:h-[400px] md:h-[450px] overflow-hidden">
-      {/* Slides container */}
-      <div 
-        className={`flex h-full transition-transform duration-700 ease-in-out ${transitionEnabled ? '' : 'transition-none'}`}
-        style={{ transform: `translateX(-${currentSlide * 100}%)` }}
-      >
-        {banners.map((banner, index) => (
-          <div 
-            key={banner.id}
-            className={`flex-shrink-0 w-full h-full relative`}
-          >
-            {/* Mobile Background Image */}
-            <div className="md:hidden absolute inset-0 z-0">
+    <div className="relative w-full h-[300px] sm:h-[350px] md:h-[400px] lg:h-[500px] xl:h-[550px] overflow-hidden">
+    {/* Slides container */}
+    <div 
+      className={`flex h-full transition-transform duration-700 ease-in-out ${transitionEnabled ? '' : 'transition-none'}`}
+      style={{ transform: `translateX(-${currentSlide * 100}%)` }}
+    >
+      {banners.map((banner, index) => (
+        <div 
+          key={banner.id}
+          className={`flex-shrink-0 w-full h-full ${banner.bgColor} ${banner.textColor} relative`}
+        >
+          <div className="container mx-auto h-full flex flex-col md:flex-row items-center">
+            {/* Content - Stacked on mobile, side-by-side on desktop */}
+            <div className="w-full md:w-1/2 px-4 sm:px-6 lg:px-8 py-4 md:py-0 z-10 order-2 md:order-1">
+              {banner.brand && <p className="text-sm sm:text-base font-medium mb-1">{banner.brand}</p>}
+              {banner.title && <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-1 sm:mb-2">{banner.title}</h2>}
+              {banner.subtitle && <h3 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold mb-2 sm:mb-4">{banner.subtitle}</h3>}
+              {banner.period && <p className="text-sm sm:text-base lg:text-lg mb-2 sm:mb-3">{banner.period}</p>}
+              {banner.model && <p className="text-base sm:text-lg lg:text-xl font-medium mb-2 sm:mb-3">{banner.model}</p>}
+              {banner.price && <p className="text-lg sm:text-xl md:text-2xl font-bold mb-1 sm:mb-2">{banner.price}</p>}
+              {banner.offer && <p className="text-xs sm:text-sm md:text-base mb-2 sm:mb-4">{banner.offer}</p>}
+              {banner.discount && <p className="text-xl sm:text-2xl font-bold text-red-600 mb-2 sm:mb-4">{banner.discount}</p>}
+              
+              {banner.highlights && (
+                <ul className="mb-2 sm:mb-4 space-y-1 sm:space-y-2">
+                  {banner.highlights.map((item, i) => (
+                    <li key={i} className="flex items-start text-xs sm:text-sm md:text-base">
+                      <span className="mr-1 sm:mr-2">•</span>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              )}
+              
+              {banner.stats && (
+                <div className="flex space-x-3 sm:space-x-4 mb-2 sm:mb-4">
+                  <div>
+                    <p className="text-lg sm:text-xl md:text-2xl font-bold">{banner.stats.time}</p>
+                    <p className="text-sm sm:text-base">{banner.stats.date}</p>
+                  </div>
+                  <div>
+                    <p className="text-base sm:text-lg md:text-xl">{banner.stats.battery}</p>
+                  </div>
+                </div>
+              )}
+              
+              <button className="px-4 sm:px-6 py-1 sm:py-2 bg-black text-white rounded-md hover:bg-gray-800 transition text-sm sm:text-base">
+                {banner.cta}
+              </button>
+            </div>
+            
+            {/* Image - Full width on mobile, half on desktop */}
+            <div className="w-full md:w-1/2 h-1/2 md:h-full flex items-center justify-center order-1 md:order-2">
               <img 
                 src={banner.image} 
-                alt={banner.title}
-                className="w-full h-full object-cover opacity-20"
+                alt={banner.title} 
+                className="h-full w-auto object-contain p-2 sm:p-4"
               />
-              <div className={`absolute inset-0 ${banner.bgColor} opacity-70`}></div>
-            </div>
-
-            <div className="container mx-auto h-full flex flex-col md:flex-row items-center relative z-10">
-              {/* Content - Always on left */}
-              <div className={`w-full md:w-1/2 px-6 py-8 md:py-0 ${banner.textColor}`}>
-                {banner.brand && <p className="text-sm md:text-base font-medium mb-1">{banner.brand}</p>}
-                {banner.title && <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-1 md:mb-2">{banner.title}</h2>}
-                {banner.subtitle && <h3 className="text-xl md:text-2xl lg:text-3xl font-semibold mb-2 md:mb-4">{banner.subtitle}</h3>}
-                {banner.period && <p className="text-base md:text-lg mb-2 md:mb-3">{banner.period}</p>}
-                {banner.model && <p className="text-lg md:text-xl font-medium mb-2 md:mb-3">{banner.model}</p>}
-                {banner.price && <p className="text-xl md:text-2xl font-bold mb-1 md:mb-2">{banner.price}</p>}
-                {banner.offer && <p className="text-sm md:text-base mb-2 md:mb-4">{banner.offer}</p>}
-                {banner.discount && <p className="text-2xl font-bold text-red-600 mb-2 md:mb-4">{banner.discount}</p>}
-                
-                {banner.highlights && (
-                  <ul className="mb-4 space-y-2">
-                    {banner.highlights.map((item, i) => (
-                      <li key={i} className="flex items-center text-sm md:text-base">
-                        <span className="mr-2">•</span>
-                        <span>{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                )}
-                
-                {banner.stats && (
-                  <div className="flex space-x-4 mb-4">
-                    <div>
-                      <p className="text-2xl font-bold">{banner.stats.time}</p>
-                      <p>{banner.stats.date}</p>
-                    </div>
-                    <div>
-                      <p className="text-xl">{banner.stats.battery}</p>
-                    </div>
-                  </div>
-                )}
-                
-                <button className="px-6 py-2 bg-black text-white rounded-md hover:bg-gray-800 transition">
-                  {banner.cta}
-                </button>
-              </div>
-              
-              {/* Desktop Image - Right Side */}
-              <div className="hidden md:block absolute right-0 top-0 h-full w-1/2">
-                <img 
-                  src={banner.image} 
-                  alt={banner.title} 
-                  className="w-full h-full object-contain object-center"
-                />
-              </div>
             </div>
           </div>
-        ))}
-      </div>
-      
-      {/* Navigation arrows */}
-      <button 
-        onClick={prevSlide}
-        className="absolute left-4 top-1/2 -translate-y-1/2 bg-white bg-opacity-80 p-2 rounded-full shadow-md hover:bg-opacity-100 transition z-10"
-      >
-        <FiChevronLeft className="w-6 h-6" />
-      </button>
-      <button 
-        onClick={nextSlide}
-        className="absolute right-4 top-1/2 -translate-y-1/2 bg-white bg-opacity-80 p-2 rounded-full shadow-md hover:bg-opacity-100 transition z-10"
-      >
-        <FiChevronRight className="w-6 h-6" />
-      </button>
-      
-      {/* Dots indicator */}
-      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-2 z-10">
-        {banners.map((_, index) => (
-          <button
-            key={index}
-            onClick={() => goToSlide(index)}
-            className={`w-3 h-3 rounded-full ${currentSlide === index ? 'bg-black' : 'bg-gray-400'}`}
-            aria-label={`Go to slide ${index + 1}`}
-          />
-        ))}
-      </div>
+        </div>
+      ))}
     </div>
-  );
+    
+    {/* Navigation arrows - Hidden on smallest screens */}
+    <button 
+      onClick={prevSlide}
+      className="hidden sm:block absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 bg-white bg-opacity-80 p-1 sm:p-2 rounded-full shadow-md hover:bg-opacity-100 transition z-10"
+    >
+      <FiChevronLeft className="w-4 h-4 sm:w-6 sm:h-6" />
+    </button>
+    <button 
+      onClick={nextSlide}
+      className="hidden sm:block absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 bg-white bg-opacity-80 p-1 sm:p-2 rounded-full shadow-md hover:bg-opacity-100 transition z-10"
+    >
+      <FiChevronRight className="w-4 h-4 sm:w-6 sm:h-6" />
+    </button>
+    
+    {/* Dots indicator - Always visible */}
+    <div className="absolute bottom-2 sm:bottom-4 left-1/2 -translate-x-1/2 flex space-x-1 sm:space-x-2 z-10">
+      {banners.map((_, index) => (
+        <button
+          key={index}
+          onClick={() => goToSlide(index)}
+          className={`w-2 h-2 sm:w-3 sm:h-3 rounded-full ${currentSlide === index ? 'bg-black' : 'bg-gray-400'}`}
+          aria-label={`Go to slide ${index + 1}`}
+        />
+      ))}
+    </div>
+  </div>
+);
 };
 
 export default BannerCarousel;
