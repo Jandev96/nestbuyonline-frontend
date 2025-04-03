@@ -35,7 +35,15 @@ const DealsOfTheDay = () => {
 
   return (
     <div className="max-w-4xl mx-auto mt-8 px-4 mb-8">
-      <h2 className="text-2xl font-bold text-gray-800 mb-6">Deals Of The Day</h2>
+         <h2 className="text-2xl font-bold text-white mb-6 px-3 py-1 rounded-md inline-block 
+                     animate-bounce 
+                     bg-gradient-to-r from-yellow-500 to-gray-700 
+                     shadow-lg
+                     hover:shadow-[0_0_15px_#b45309,0_0_30px_#9ca3af]
+                     transition-all duration-500">
+        Deals Of The Day
+      </h2>
+      
       
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {deals.map((deal, index) => (

@@ -14,7 +14,7 @@ function Header() {
 
   const handleLogout = () => {
     dispatch(logoutUser()).then(() => {
-      clearCart(); // ✅ Clears the cart on logout
+      clearCart(); // ✅ 
       navigate("/login");
     });
   };
