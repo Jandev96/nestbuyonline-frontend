@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import useProductStore from "../../zustand/productStore";
 import { useCartStore } from "../../zustand/cartStore";
 import Cards from "./Cards";
@@ -9,10 +8,7 @@ import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 
 function FilteredProducts() {
-  const navigate = useNavigate();
   const { products, fetchProducts, isLoading, error } = useProductStore();
-  const addToCart = useCartStore((state) => state.addToCart);
-
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
 
@@ -47,16 +43,12 @@ function FilteredProducts() {
     slidesToScroll: 1,
     responsive: [
       {
-        breakpoint: 1024, // below 1024px
-        settings: {
-          slidesToShow: 2,
-        },
+        breakpoint: 1024,
+        settings: { slidesToShow: 2 },
       },
       {
-        breakpoint: 640, // below 640px
-        settings: {
-          slidesToShow: 1,
-        },
+        breakpoint: 640,
+        settings: { slidesToShow: 1 },
       },
     ],
   };
