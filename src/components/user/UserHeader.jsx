@@ -56,20 +56,8 @@ function Header() {
         {/* Dark Mode */}
         <DarkMode />
 
-        {/* Cart Icon */}
-       
-
-        {/* Desktop Navigation & Auth */}
-        <div className="hidden lg:flex items-center gap-6 ml-6">
-          {/* Navigation Links */}
-          <nav className="flex gap-4 text-sm font-medium">
-            <Link to="/" className="hover:text-blue-400 transition-colors">Home</Link>
-            <Link to="/products" className="hover:text-blue-400 transition-colors">Shop</Link>
-            <Link to="/about" className="hover:text-blue-400 transition-colors">About</Link>
-            <Link to="/contact" className="hover:text-blue-400 transition-colors">Contact</Link>
-          </nav>
-
-          <div className="flex-none mx-4">
+        {/* Cart Icon (Visible on all screen sizes) */}
+        <div className="flex-none mx-4">
           <Link to="/cart" className="relative">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -94,7 +82,17 @@ function Header() {
           </Link>
         </div>
 
-          {/* Auth/Profile */}
+        {/* Desktop Navigation & Auth */}
+        <div className="hidden lg:flex items-center gap-6 ml-6">
+          <nav className="flex gap-4 text-sm font-medium">
+            <Link to="/" className="hover:text-blue-400 transition-colors">Home</Link>
+            <Link to="/products" className="hover:text-blue-400 transition-colors">Shop</Link>
+            <Link to="/about" className="hover:text-blue-400 transition-colors">About</Link>
+            <Link to="/contact" className="hover:text-blue-400 transition-colors">Contact</Link>
+          </nav>
+
+          
+
           {user ? (
             <div className="dropdown dropdown-end ml-4">
               <div
@@ -139,8 +137,8 @@ function Header() {
           )}
         </div>
 
-        {/* Hamburger (Mobile Only) */}
-        <div className="lg:hidden">
+        {/* Mobile Hamburger */}
+        <div className="lg:hidden flex items-center">
           <button onClick={() => setMenuOpen(!menuOpen)} className="text-white">
             {menuOpen ? (
               <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
