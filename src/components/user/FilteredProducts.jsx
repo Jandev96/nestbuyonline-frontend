@@ -16,7 +16,16 @@ function FilteredProducts() {
     fetchProducts();
   }, []);
 
-  if (isLoading) return <p className="text-center text-lg text-blue-500">Loading products...</p>;
+  if (isLoading) return (
+    <div className="fixed inset-0 flex items-center justify-center bg-white/50 z-50">
+      <div className="flex items-center justify-center space-x-2">
+        <div className="w-4 h-4 rounded-full animate-pulse bg-gray-400"></div>
+        <div className="w-4 h-4 rounded-full animate-pulse bg-gray-400"></div>
+        <div className="w-4 h-4 rounded-full animate-pulse  bg-gray-400"></div>
+      </div>
+    </div>
+  );
+  
   if (error) return <p className="text-center text-lg text-red-500">Error: {error}</p>;
   if (products.length === 0) return <p className="text-center text-lg">No products available.</p>;
 
