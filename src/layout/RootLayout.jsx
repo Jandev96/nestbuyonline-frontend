@@ -6,7 +6,7 @@ import UserHeader from '../components/user/UserHeader';
 
 function RootLayout() {
   const location = useLocation();
-  const [isUserAuth, setIsAuth] = useState(false);
+  const [isUserAuth, setIsAuth] = useState(true);
 
   // ✅ Hide navbar & footer on login and signup pages
   const hideNavbarFooter = ["/login", "/signup"].includes(location.pathname);
@@ -14,7 +14,7 @@ function RootLayout() {
   return (
     <>
       {!hideNavbarFooter && (isUserAuth ? <UserHeader /> : <Header />)}
-
+      
       <div className='min-h-screen'>
         <Outlet />
       </div>

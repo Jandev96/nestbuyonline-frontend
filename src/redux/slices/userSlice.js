@@ -25,6 +25,7 @@ export const loginUser = createAsyncThunk("user/login", async (userData, { rejec
 export const logoutUser = createAsyncThunk("user/logout", async (_, { rejectWithValue }) => {
   try {
     await axiosInstance.get("/user/logout");
+    console.log('redux logout')
     return null;
   } catch (error) {
     return rejectWithValue(error.response?.data?.message || "Logout failed");

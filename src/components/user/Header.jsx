@@ -14,6 +14,7 @@ function Header() {
 
   const handleLogout = () => {
     dispatch(logoutUser()).then(() => {
+      console.log("token removed")
       clearCart(); // ✅ 
       navigate("/login");
     });

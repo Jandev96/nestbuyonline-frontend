@@ -1,39 +1,41 @@
-import React from 'react'
-import { useNavigate } from 'react-router-dom'
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import { useCartStore } from "../../zustand/cartStore";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import Slider from "react-slick";
 
+function Cards({ product }) {
+  const navigate = useNavigate();
+  const addToCart = useCartStore((state) => state.addToCart);
 
-
-
-
-function Cards({product}) {
-
-const navigate =useNavigate();
-  
   return (
-   
-    <div className="card bg-base-100 w-96 h-100 shadow-sm relative group ">
-  <figure className="relative">
-    <img 
-      src={product.images}
-      alt={product.category}
-      className="w-screen "
-    />
-    {/* Product Title Overlay */}
-    <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-90 text-white text-lg font-semibold opacity-0
-     group-hover:opacity-65 transition-opacity duration-300">
-     {product.name}
+    <div className="relative w-96 h-[36rem] rounded-lg overflow-hidden cursor-pointer text-white shadow-xl group">
+      <img
+        src={product.images}
+        alt={product.category}
+        className="absolute object-contain w-full h-full top-0 left-0 opacity-90 transition-opacity duration-200 ease-out group-hover:opacity-100"
+      />
+      <h2 className="absolute left-8 bottom-8 uppercase font-roboto-condensed font-normal transition-all duration-300 ease-out group-hover:bottom-56">
+        {product.name}
+      </h2>
+      <div className="absolute left-8 bottom-10 flex gap-3 opacity-0 transition-opacity duration-500 ease-in group-hover:opacity-100">
+        <button
+          onClick={() => navigate(`/productDetails/${product?._id}`)}
+          className="flex items-center gap-1 text-white hover:text-gray-200 font-medium"
+        >
+          Details
+          <span className="material-symbols-outlined">arrow_right_alt</span>
+        </button>
+        <button
+          onClick={() => addToCart(product._id, 1)}
+          className="bg-white text-gray-900 font-semibold px-4 py-1 rounded hover:bg-gray-200 transition"
+        >
+          Add to Cart
+        </button>
+      </div>
     </div>
-  </figure>
-
-  {/* Buy Button (Hidden by default, appears on hover) */}
-  <div className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-    <button className="btn btn-primary"  onClick={()=> navigate(`/productDetails/${product?._id}`)} >Buy Now</button>
-  </div>
-</div>
-
-  
-  
-  )
+  );
 }
 
-export default Cards
+export default Cards;
