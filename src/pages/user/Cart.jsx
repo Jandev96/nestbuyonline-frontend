@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useCartStore } from "../../zustand/cartStore";
 import { loadStripe } from "@stripe/stripe-js";
 import { axiosInstance } from "../../config/axiosInstance";
+import { Link, Links } from "react-router-dom";
 
 function Cart() {
   const { items = [], totalAmount, fetchCart, increaseQuantity, decreaseQuantity, removeItem } = useCartStore();
@@ -150,9 +151,9 @@ const makePayment = async () => {
               <p>₹{totalAmount.toLocaleString()}</p>
             </div>
 
-            <button onClick={makePayment} className="w-full bg-green-500 text-white py-2 rounded-md hover:bg-green-600 transition">
+            <Links onClick={makePayment} className="w-full bg-green-500 text-white py-2 rounded-md hover:bg-green-600 transition">
               Proceed to Checkout
-            </button>
+            </Links>
           </div>
         </div>
       ) : (
