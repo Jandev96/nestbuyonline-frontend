@@ -1,8 +1,15 @@
-import React from "react";
-import { CheckCircle2 } from "lucide-react"; // You can also use a custom SVG
+import React, { useEffect } from "react";
+import { CheckCircle2 } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useCartStore } from "../../zustand/cartStore" // ✅ Import the cart store
 
 const PaymentSuccess = () => {
+  const { clearCart } = useCartStore(); // ✅ Access clearCart from Zustand
+
+  useEffect(() => {
+    clearCart(); // ✅ Clear the cart when user lands here
+  }, []);
+
   return (
     <div className="min-h-screen bg-green-50 flex items-center justify-center px-4">
       <div className="bg-white rounded-2xl shadow-xl p-10 max-w-md text-center animate-fade-in">
@@ -24,3 +31,4 @@ const PaymentSuccess = () => {
 };
 
 export default PaymentSuccess;
+
