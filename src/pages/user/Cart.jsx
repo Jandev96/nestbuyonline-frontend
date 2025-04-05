@@ -1,5 +1,7 @@
 import React, { useEffect } from "react";
 import { useCartStore } from "../../zustand/cartStore";
+import { loadStripe } from "@stripe/stripe-js";
+import { axiosInstance } from "../../config/axiosInstance";
 
 function Cart() {
   const { items = [], totalAmount, fetchCart, increaseQuantity, decreaseQuantity, removeItem } = useCartStore();
@@ -7,6 +9,30 @@ function Cart() {
   useEffect(() => {
     fetchCart();
   }, []);
+
+
+  
+  const makePayment = async () => {
+    try {
+        const stripe = await loadStripe(import.meta.env.VITE_STRIPE_Publishable_key);
+
+        const session = await axiosInstance({
+            url: "/payment/create-checkout-session",
+            method: "POST",
+            data: { products: items},
+        });
+        
+        console.log(session, "=======session");
+        const result = stripe.redirectToCheckout({
+            sessionId: session.data.sessionId,
+        });
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+
+
 
   // Calculate original price and savings
   const originalTotal = items.reduce(
@@ -116,7 +142,7 @@ function Cart() {
               <p>₹{totalAmount.toLocaleString()}</p>
             </div>
 
-            <button className="w-full bg-green-500 text-white py-2 rounded-md hover:bg-green-600 transition">
+            <button onClick={makePayment} className="w-full bg-green-500 text-white py-2 rounded-md hover:bg-green-600 transition">
               Proceed to Checkout
             </button>
           </div>

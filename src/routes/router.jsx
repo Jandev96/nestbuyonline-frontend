@@ -16,6 +16,7 @@ import ProtectRoutes from "./ProtectRoutes";
 import ProfilePage from "../pages/user/ProfilePage";
 import Payment from "../pages/user/Payment";
 import Cart from "../pages/user/Cart";
+import PaymentSuccess from "../pages/user/PaymentSucess";
 
 export const router = createBrowserRouter([
   {
@@ -37,6 +38,18 @@ export const router = createBrowserRouter([
           { path: "profile", element: <ProfilePage /> },
           { path: "payment", element: <Payment /> },
           { path: "cart", element: <Cart /> },
+          {
+            path: "payment",
+            element: <h1>payment</h1>,
+        },
+        {
+            path: "user/payment/success",
+            element: <PaymentSuccess />,
+        },
+        {
+            path: "payment/cancel",
+            element: <h1>Payment Cancelled </h1>,
+        },
         ],
       },
     ],
