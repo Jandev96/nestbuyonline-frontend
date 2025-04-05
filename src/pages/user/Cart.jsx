@@ -12,23 +12,31 @@ function Cart() {
 
 
   
-  const makePayment = async () => {
-    try {
-        const stripe = await loadStripe(import.meta.env.VITE_STRIPE_Publishable_key);
 
-        const session = await axiosInstance({
-            url: "/payment/create-checkout-session",
-            method: "POST",
-            data: { products: items},
-        });
-        
-        console.log(session, "=======session");
-        const result = stripe.redirectToCheckout({
-            sessionId: session.data.sessionId,
-        });
-    } catch (error) {
-        console.log(error);
+
+
+
+const makePayment = async () => {
+  try {
+    const stripeKey = import.meta.env.VITE_STRIPE_Publishable_key;
+    console.log("Stripe Key:", stripeKey);
+
+    const stripe = await loadStripe(stripeKey);
+    if (!stripe) throw new Error("Stripe failed to load");
+
+    const session = await axiosInstance.post("/payment/create-checkout-session", { products: items });
+    console.log("Session:", session.data);
+
+    const result = await stripe.redirectToCheckout({
+      sessionId: session.data.sessionId,
+    });
+
+    if (result.error) {
+      console.error("Stripe redirect error:", result.error.message);
     }
+  } catch (error) {
+    console.error("Payment error:", error);
+  }
 };
 
 
