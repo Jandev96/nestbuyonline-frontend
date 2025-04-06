@@ -6,8 +6,8 @@ const productImage = "https://via.placeholder.com/40";
 
 const menuItems = [
   { name: "Dashboard", path: "/admin/dashboard" },
-  { name: "Products", path: "/admin/add-product" }, // updated
-  { name: "Category", path: "#" },
+  { name: "Add Products", path: "/admin/add-product" }, // updated
+  { name: "Edit Products", path: "/admin/edit-products" },
   { name: "Orders", path: "#" },
   { name: "Transaction", path: "#" },
   { name: "Manage Admins", path: "#" },
@@ -19,7 +19,7 @@ const menuItems = [
 
 export default function AdminDashboard() {
   return (
-    <div className="flex min-h-screen bg-[#f8f7f4]">
+    <div className="mt-20 flex min-h-screen bg-[#f8f7f4]">
       {/* Sidebar */}
       <aside className="w-64 bg-white border-r shadow-sm">
         <div className="p-4 font-semibold text-xs text-gray-400">MENU</div>

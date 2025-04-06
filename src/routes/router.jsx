@@ -18,6 +18,8 @@ import Payment from "../pages/user/Payment";
 import Cart from "../pages/user/Cart";
 import PaymentSuccess from "../pages/user/PaymentSucess";
 import AddProduct from "../components/admin/AddProduct";
+import AdminProductList from "../pages/admin/AdminProductList";
+import AdminEditProduct from "../pages/admin/AdminEditProduct";
 
 export const router = createBrowserRouter([
   {
@@ -70,7 +72,10 @@ export const router = createBrowserRouter([
         children: [
           { path: "dashboard", element: <AdminDashboard /> },
           { path: "manage-users", element: <ManageUsers /> },
-          { path: "/admin/add-product", element: <AddProduct /> }
+          { path: "/admin/add-product", element: <AddProduct /> },
+          {path:"/admin/edit-products", element: <AdminProductList />  },
+          {path:"/admin/edit-product/:productId", element: <AdminEditProduct />  }
+
         ],
       },
     ],
