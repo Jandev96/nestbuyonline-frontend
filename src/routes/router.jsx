@@ -17,6 +17,7 @@ import ProfilePage from "../pages/user/ProfilePage";
 import Payment from "../pages/user/Payment";
 import Cart from "../pages/user/Cart";
 import PaymentSuccess from "../pages/user/PaymentSucess";
+import AddProduct from "../components/admin/AddProduct";
 
 export const router = createBrowserRouter([
   {
@@ -69,6 +70,7 @@ export const router = createBrowserRouter([
         children: [
           { path: "dashboard", element: <AdminDashboard /> },
           { path: "manage-users", element: <ManageUsers /> },
+          { path: "/admin/add-product", element: <AddProduct /> }
         ],
       },
     ],

@@ -15,7 +15,7 @@ function FilteredProducts() {
   useEffect(() => {
     fetchProducts();
   }, []);
-
+  console.log(products)
   if (isLoading) return (
     <div className="fixed inset-0 flex items-center justify-center bg-white/50 z-50">
       <div className="flex items-center justify-center space-x-2">
