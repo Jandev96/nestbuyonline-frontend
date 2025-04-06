@@ -5,7 +5,7 @@ import { logoutUser } from "../../redux/slices/userSlice";
 import DarkMode from "../../pages/shared/DarkMode";
 import { useCartStore } from "../../zustand/cartStore";
 
-function Header() {
+function UserHeader() {
   const { user } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -188,4 +188,4 @@ function Header() {
   );
 }
 
-export default Header;
+export default UserHeader;

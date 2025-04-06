@@ -1,6 +1,38 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { axiosInstance } from "../../config/axiosInstance";
 
+
+
+const initialState = {
+  userData: {},
+  isUserAuth: false,
+};
+
+export const userslice = createSlice({
+  name: "user",
+  initialState,
+  reducers: {
+      saveUser: (state, action) => {
+          state.isUserAuth = true;
+          state.userData = action.payload;
+      },
+      clearUser: (state) => {
+          state.isUserAuth = false;
+          state.userData = {};
+      },
+  },
+});
+
+// Action creators are generated for each case reducer function
+export const { saveUser, clearUser } = userslice.actions;
+
+
+
+
+
+
+
+
 // Async Thunk for User Signup
 export const signupUser = createAsyncThunk("user/signup", async (userData, { rejectWithValue }) => {
   try {

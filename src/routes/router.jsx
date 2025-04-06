@@ -1,5 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
-import RootLayout from "../layout/RootLayout";
+import{RootLayout} from "../layout/RootLayout";
 import AdminLayout from "../layout/AdminLayout"; // ✅ Import Admin Layout
 import AdminProtectedRoute from "./adminProtectedRoute";
 import AdminDashboard from "../pages/admin/AdminDashboard";
