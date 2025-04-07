@@ -17,7 +17,7 @@ function Home() {
      
 
 <BannerCarousel />
-<div className="w-full h-[600px] flex items-center justify-center px-4 bg-gradient-to-br from-gray-800 via-gray-900 to-black">
+<div className="w-full h-[600px] flex items-center justify-center px-4 bg-gradient-to-br from-gray-800 via-gray-900 to-black overflow-hidden">
   <CircleCarousel
     baseWidth={500}
     autoplay={true}
@@ -27,6 +27,7 @@ function Home() {
     round={false}
   />
 </div>
+
 
 <ProductBanner />
 <DealsOfTheDay />
