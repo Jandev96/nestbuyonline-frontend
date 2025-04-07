@@ -1,37 +1,12 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { axiosInstance } from "../../config/axiosInstance";
 
-
-
 const initialState = {
-  userData: {},
+  user: null,
   isUserAuth: false,
+  loading: false,
+  error: null,
 };
-
-export const userslice = createSlice({
-  name: "user",
-  initialState,
-  reducers: {
-      saveUser: (state, action) => {
-          state.isUserAuth = true;
-          state.userData = action.payload;
-      },
-      clearUser: (state) => {
-          state.isUserAuth = false;
-          state.userData = {};
-      },
-  },
-});
-
-// Action creators are generated for each case reducer function
-export const { saveUser, clearUser } = userslice.actions;
-
-
-
-
-
-
-
 
 // Async Thunk for User Signup
 export const signupUser = createAsyncThunk("user/signup", async (userData, { rejectWithValue }) => {
@@ -57,30 +32,54 @@ export const loginUser = createAsyncThunk("user/login", async (userData, { rejec
 export const logoutUser = createAsyncThunk("user/logout", async (_, { rejectWithValue }) => {
   try {
     await axiosInstance.get("/user/logout");
-    console.log('redux logout')
     return null;
   } catch (error) {
     return rejectWithValue(error.response?.data?.message || "Logout failed");
   }
 });
 
-// User Slice
 const userSlice = createSlice({
   name: "user",
-  initialState: { user: null, loading: false, error: null },
-  reducers: {},
+  initialState,
+  reducers: {
+    saveUser: (state, action) => {
+      state.isUserAuth = action.payload.isUserAuth;
+    },
+    clearUser: (state) => {
+      state.isUserAuth = false;
+      state.user = null;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(signupUser.pending, (state) => { state.loading = true; })
-      .addCase(signupUser.fulfilled, (state, action) => { state.loading = false; state.user = action.payload; })
-      .addCase(signupUser.rejected, (state, action) => { state.loading = false; state.error = action.payload; })
+      .addCase(signupUser.fulfilled, (state, action) => {
+        state.loading = false;
+        state.user = action.payload;
+        state.isUserAuth = true;
+      })
+      .addCase(signupUser.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
 
       .addCase(loginUser.pending, (state) => { state.loading = true; })
-      .addCase(loginUser.fulfilled, (state, action) => { state.loading = false; state.user = action.payload; })
-      .addCase(loginUser.rejected, (state, action) => { state.loading = false; state.error = action.payload; })
+      .addCase(loginUser.fulfilled, (state, action) => {
+        state.loading = false;
+        state.user = action.payload;
+        state.isUserAuth = true;
+      })
+      .addCase(loginUser.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
 
-      .addCase(logoutUser.fulfilled, (state) => { state.user = null; });
+      .addCase(logoutUser.fulfilled, (state) => {
+        state.user = null;
+        state.isUserAuth = false;
+      });
   },
 });
 
+export const { saveUser, clearUser } = userSlice.actions;
 export default userSlice.reducer;
