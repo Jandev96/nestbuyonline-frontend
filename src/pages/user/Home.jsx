@@ -14,20 +14,23 @@ function Home() {
 
   return (
     <div>
+     
 
 <BannerCarousel />
-<ProductBanner />
-<DealsOfTheDay />
 <div className="w-full h-[600px] flex items-center justify-center px-4 bg-gradient-to-br from-gray-800 via-gray-900 to-black">
   <CircleCarousel
-    baseWidth={400}
+    baseWidth={500}
     autoplay={true}
-    autoplayDelay={2000}
-    pauseOnHover={true}
+    autoplayDelay={3000}
+    pauseOnHover={false}
     loop={true}
-    round={true}
+    round={false}
   />
 </div>
+
+<ProductBanner />
+<DealsOfTheDay />
+
 
 
 

@@ -1,44 +1,36 @@
 import { useEffect, useState, useRef } from "react";
 import { motion, useMotionValue, useTransform } from "framer-motion";
-// replace icons with your own if needed
-import {
-  FiCircle,
-  FiCode,
-  FiFileText,
-  FiLayers,
-  FiLayout,
-} from "react-icons/fi";
 
 const DEFAULT_ITEMS = [
   {
-    title: "Text Animations",
-    description: "Cool text animations for your projects.",
+    title: "COffee",
+    description: "Boost your energy with a sip...",
     id: 1,
-    icon: <FiFileText className="h-[16px] w-[16px] text-white" />,
+    image: "https://i.pinimg.com/736x/21/93/a1/2193a1e0bddcdd10d0e540a3ddcf14fc.jpg",
   },
   {
-    title: "Animations",
-    description: "Smooth animations for your projects.",
+    title: "APPLE AIRPODS PRO MAX",
+    description: "A perfect sound master Bluetooth headphones 𝗙𝗲𝗮𝘁𝘂𝗿𝗲𝘀 ANC active noise cancellation ",
     id: 2,
-    icon: <FiCircle className="h-[16px] w-[16px] text-white" />,
+    image: "https://i.pinimg.com/736x/20/7f/72/207f72b46ad8b45a62198e1514f6b5a8.jpg",
   },
   {
-    title: "Components",
-    description: "Reusable components for your projects.",
+    title: "HOPESTAR H65",
+    description: "20W Output Portable Bluetooth Speaker, H65",
     id: 3,
-    icon: <FiLayers className="h-[16px] w-[16px] text-white" />,
+    image: "https://i.pinimg.com/736x/70/af/75/70af75569deb781bbfe713ed9db92947.jpg",
   },
   {
-    title: "Backgrounds",
-    description: "Beautiful backgrounds and patterns for your projects.",
+    title: "OREO",
+    description: "Thrill your life with the sip of OREO.",
     id: 4,
-    icon: <FiLayout className="h-[16px] w-[16px] text-white" />,
+    image: "https://i.pinimg.com/736x/7d/4d/35/7d4d351905bc8cabd12478d27ece4a39.jpg",
   },
   {
-    title: "Common UI",
-    description: "Common UI components are coming soon!",
+    title: "Lorel",
+    description: "New age Lock unlocked",
     id: 5,
-    icon: <FiCode className="h-[16px] w-[16px] text-white" />,
+    image: "https://i.pinimg.com/736x/68/a0/01/68a00141652df03e5c4e9faaaabdf091.jpg",
   },
 ];
 
@@ -54,7 +46,6 @@ export default function CircleCarousel({
   autoplayDelay = 3000,
   pauseOnHover = false,
   loop = false,
-  round = false,
 }) {
   const containerPadding = 16;
   const itemWidth = baseWidth - containerPadding * 2;
@@ -67,6 +58,7 @@ export default function CircleCarousel({
   const [isResetting, setIsResetting] = useState(false);
 
   const containerRef = useRef(null);
+
   useEffect(() => {
     if (pauseOnHover && containerRef.current) {
       const container = containerRef.current;
@@ -86,7 +78,7 @@ export default function CircleCarousel({
       const timer = setInterval(() => {
         setCurrentIndex((prev) => {
           if (prev === items.length - 1 && loop) {
-            return prev + 1; // Animate to clone.
+            return prev + 1;
           }
           if (prev === carouselItems.length - 1) {
             return loop ? 0 : prev;
@@ -138,95 +130,83 @@ export default function CircleCarousel({
   const dragProps = loop
     ? {}
     : {
-      dragConstraints: {
-        left: -trackItemOffset * (carouselItems.length - 1),
-        right: 0,
-      },
-    };
+        dragConstraints: {
+          left: -trackItemOffset * (carouselItems.length - 1),
+          right: 0,
+        },
+      };
+
+  const currentItem = items[currentIndex % items.length];
 
   return (
     <div
       ref={containerRef}
-      className={`relative overflow-hidden p-4 ${round
-        ? "rounded-full border border-white"
-        : "rounded-[24px] border border-[#222]"
-        }`}
-      style={{
-        width: `${baseWidth}px`,
-        ...(round && { height: `${baseWidth}px` }),
-      }}
+      className="relative flex flex-col md:flex-row items-center justify-center md:gap-8 gap-4"
+      style={{ width: baseWidth + 250 }}
     >
-      <motion.div
-        className="flex"
-        drag="x"
-        {...dragProps}
-        style={{
-          width: itemWidth,
-          gap: `${GAP}px`,
-          perspective: 1000,
-          perspectiveOrigin: `${currentIndex * trackItemOffset + itemWidth / 2}px 50%`,
-          x,
-        }}
-        onDragEnd={handleDragEnd}
-        animate={{ x: -(currentIndex * trackItemOffset) }}
-        transition={effectiveTransition}
-        onAnimationComplete={handleAnimationComplete}
-      >
-        {carouselItems.map((item, index) => {
-          const range = [
-            -(index + 1) * trackItemOffset,
-            -index * trackItemOffset,
-            -(index - 1) * trackItemOffset,
-          ];
-          const outputRange = [90, 0, -90];
-          // eslint-disable-next-line react-hooks/rules-of-hooks
-          const rotateY = useTransform(x, range, outputRange, { clamp: false });
-          return (
-            <motion.div
-              key={index}
-              className={`relative shrink-0 flex flex-col ${round
-                ? "items-center justify-center text-center bg-[#060606] border-0"
-                : "items-start justify-between bg-[#222] border border-[#222] rounded-[12px]"
-                } overflow-hidden cursor-grab active:cursor-grabbing`}
-              style={{
-                width: itemWidth,
-                height: round ? itemWidth : "100%",
-                rotateY: rotateY,
-                ...(round && { borderRadius: "50%" }),
-              }}
-              transition={effectiveTransition}
-            >
-              <div className={`${round ? "p-0 m-0" : "mb-4 p-5"}`}>
-                <span className="flex h-[28px] w-[28px] items-center justify-center rounded-full bg-[#060606]">
-                  {item.icon}
-                </span>
-              </div>
-              <div className="p-5">
-                <div className="mb-1 font-black text-lg text-white">
-                  {item.title}
-                </div>
-                <p className="text-sm text-white">{item.description}</p>
-              </div>
-            </motion.div>
-          );
-        })}
-      </motion.div>
+      {/* Carousel */}
       <div
-        className={`flex w-full justify-center ${round ? "absolute z-20 bottom-12 left-1/2 -translate-x-1/2" : ""
-          }`}
+        className="relative overflow-hidden px-2 rounded-full"
+        style={{
+          width: `${baseWidth}px`,
+          height: `${baseWidth}px`,
+        }}
       >
-        <div className="mt-4 flex w-[150px] justify-between px-8">
+        <motion.div
+          className="flex"
+          drag="x"
+          {...dragProps}
+          style={{
+            width: itemWidth,
+            gap: `${GAP}px`,
+            perspective: 1000,
+            perspectiveOrigin: `${currentIndex * trackItemOffset + itemWidth / 2}px 50%`,
+            x,
+          }}
+          onDragEnd={handleDragEnd}
+          animate={{ x: -(currentIndex * trackItemOffset) }}
+          transition={effectiveTransition}
+          onAnimationComplete={handleAnimationComplete}
+        >
+          {carouselItems.map((item, index) => {
+            const range = [
+              -(index + 1) * trackItemOffset,
+              -index * trackItemOffset,
+              -(index - 1) * trackItemOffset,
+            ];
+            const outputRange = [90, 0, -90];
+            const rotateY = useTransform(x, range, outputRange, { clamp: false });
+
+            return (
+              <motion.div
+                key={index}
+                className="relative shrink-0 flex items-center justify-center bg-[#060606] border-0"
+                style={{
+                  width: itemWidth,
+                  height: baseWidth,
+                  rotateY,
+                  borderRadius: "50%",
+                }}
+                transition={effectiveTransition}
+              >
+                <img
+                  src={item.image}
+                  alt={item.title}
+                  className="absolute inset-0 w-full h-full object-cover rounded-full"
+                />
+              </motion.div>
+            );
+          })}
+        </motion.div>
+
+        {/* Dot Indicators */}
+        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-20">
           {items.map((_, index) => (
             <motion.div
               key={index}
-              className={`h-2 w-2 rounded-full cursor-pointer transition-colors duration-150 ${currentIndex % items.length === index
-                ? round
-                  ? "bg-white"
-                  : "bg-[#333333]"
-                : round
-                  ? "bg-[#555]"
-                  : "bg-[rgba(51,51,51,0.4)]"
-                }`}
+              className={`h-2 w-2 rounded-full cursor-pointer transition-colors duration-150 ${
+                currentIndex % items.length === index ? "bg-white" : "bg-gray-500"
+              }`}
               animate={{
                 scale: currentIndex % items.length === index ? 1.2 : 1,
               }}
@@ -236,6 +216,18 @@ export default function CircleCarousel({
           ))}
         </div>
       </div>
+
+      {/* Text Description */}
+      <motion.div
+        key={currentIndex % items.length}
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4 }}
+        className="w-[90%] md:w-[200px] text-white text-center md:text-left space-y-2"
+      >
+        <h2 className="text-xl font-bold">{currentItem.title}</h2>
+        <p className="text-sm">{currentItem.description}</p>
+      </motion.div>
     </div>
   );
 }
