@@ -1,5 +1,6 @@
 import React from "react";
-import { StickyScroll } from "../../components/user/StickyScroll"; // Adjust the import path if needed
+import { StickyScroll } from "../../components/user/StickyScroll";
+import SplashCursor from "../../lib/SplashCurser.jsx"; // Adjust the import path if needed
 
 const contactContent = [
   {
@@ -40,6 +41,7 @@ const contactContent = [
 const Contact = () => {
   return (
     <main className="bg-black">
+      <SplashCursor />
       <StickyScroll content={contactContent} />
     </main>
   );
