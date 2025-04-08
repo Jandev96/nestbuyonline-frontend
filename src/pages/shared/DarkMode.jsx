@@ -6,7 +6,7 @@ function DarkMode() {
   return (
     <label className="swap swap-rotate">
     {/* this hidden checkbox controls the state */}
-    <input type="checkbox" className="theme-controller" value="forest" />
+    <input type="checkbox" className="theme-controller" value="sunset" />
   
     {/* sun icon */}
     <svg

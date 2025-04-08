@@ -3,6 +3,7 @@ import useProductStore from "../../zustand/productStore";
 import { useCartStore } from "../../zustand/cartStore";
 import Cards from "./Cards";
 
+
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
@@ -48,7 +49,7 @@ function FilteredProducts() {
     dots: true,
     infinite: false,
     speed: 500,
-    slidesToShow: 3,
+    slidesToShow: 4,
     slidesToScroll: 1,
     responsive: [
       {
@@ -64,6 +65,7 @@ function FilteredProducts() {
 
   return (
     <div className="container mx-auto p-6">
+     
       {/* Search Bar & Category Filter */}
       <div className="flex flex-col md:flex-row gap-4 mb-6">
         <input
@@ -74,7 +76,7 @@ function FilteredProducts() {
           onChange={(e) => setSearchTerm(e.target.value)}
         />
         <select
-          className="border p-2 rounded w-full md:w-1/4"
+          className="border p-2 rounded w-full md:w-1/4 "
           value={selectedCategory}
           onChange={(e) => setSelectedCategory(e.target.value)}
         >
@@ -87,7 +89,7 @@ function FilteredProducts() {
       {/* Category Carousels */}
       {Object.keys(groupedProducts).map((category) => (
         <div key={category} className="mb-12">
-          <h2 className="text-2xl font-bold text-gray-800 mb-6 border-b pb-2">{category}</h2>
+          <h2 className="text-2xl font-bold mb-6 border-b pb-2 inline-flex animate-background-shine bg-[linear-gradient(110deg,#939393,45%,#1e293b,55%,#939393)] bg-[length:250%_100%] bg-clip-text  text-transparent">{category}</h2>
           <Slider {...sliderSettings}>
             {groupedProducts[category].map((product) => (
               <div key={product._id} className="px-2">
