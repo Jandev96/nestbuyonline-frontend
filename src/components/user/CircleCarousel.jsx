@@ -141,7 +141,7 @@ export default function CircleCarousel({
   return (
     <div
       ref={containerRef}
-      className="relative flex flex-col md:flex-row items-center justify-center md:gap-8 gap-4"
+      className="relative flex flex-col md:flex-row items-center justify-center md:gap-8 gap-4 overflow-hidden"
       style={{ width: baseWidth + 250 }}
     >
       {/* Carousel */}
