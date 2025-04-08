@@ -13,7 +13,7 @@ function Cards({ product }) {
       {/* Image Section */}
       <div
         onClick={() => navigate(`/productDetails/${product._id}`)}
-        className="cursor-pointer h-[60%] md:group-hover:h-[60%] transition-all duration-300"
+        className="cursor-pointer h-[60%] md:group-hover:h-[60%] transition-all duration-300 "
       >
         <img
           src={product.images}
@@ -23,7 +23,7 @@ function Cards({ product }) {
       </div>
 
       {/* Bottom Section */}
-      <div className="absolute bottom-0 w-full h-[37%] md:group-hover:h-[37%] bg-blue-950 text-white transition-all duration-500 ease-in-out flex flex-col justify-between px-5 py-3 overflow-hidden">
+      <div className="absolute bottom-0 w-full h-[37%] md:group-hover:h-[37%] bg-cyan-800 text-white transition-all duration-500 ease-in-out flex flex-col justify-between px-5 py-3 overflow-hidden">
 
         {/* Title */}
         <div className="transition-all duration-300 md:group-hover:-translate-y-2">

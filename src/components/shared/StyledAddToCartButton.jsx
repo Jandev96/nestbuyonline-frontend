@@ -17,8 +17,8 @@ const StyledWrapper = styled.div`
     position: relative;
     padding: 8px 20px;
     font-size: 14px;
-    color: orange;
-    border: 2px solid orange;
+    color: white;
+    border: 2px solid white;
     border-radius: 30px;
     background-color: transparent;
     font-weight: 600;
@@ -36,7 +36,7 @@ const StyledWrapper = styled.div`
     border-radius: inherit;
     scale: 0;
     z-index: -1;
-    background-color: orange;
+    background-color: white;
     transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
   }
 
@@ -45,9 +45,9 @@ const StyledWrapper = styled.div`
   }
 
   .button:hover {
-    color: #212121;
+    color: oklch(0.45 0.085 224.283);
     scale: 1.05;
-    box-shadow: 0 0px 15px rgba(255, 165, 0, 0.4); /* orange glow */
+  
   }
 
   .button:active {
