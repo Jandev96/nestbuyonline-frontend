@@ -20,6 +20,7 @@ import PaymentSuccess from "../pages/user/PaymentSucess";
 import AddProduct from "../components/admin/AddProduct";
 import AdminProductList from "../pages/admin/AdminProductList";
 import AdminEditProduct from "../pages/admin/AdminEditProduct";
+import OrderDetailsPage from "../pages/user/OrderDetailsPage";
 
 export const router = createBrowserRouter([
   {
@@ -52,6 +53,10 @@ export const router = createBrowserRouter([
         {
             path: "payment/cancel",
             element: <h1>Payment Cancelled </h1>,
+        },
+        {
+          path: "orders/:id",
+          element: <OrderDetailsPage />, // ✅ ADD THIS LINE
         },
         ],
       },
