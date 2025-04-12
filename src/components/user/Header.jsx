@@ -3,19 +3,19 @@ import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { logoutUser } from "../../redux/slices/userSlice";
 import DarkMode from "../../pages/shared/DarkMode";
-import { useCartStore } from "../../zustand/cartStore";
+// import { useCartStore } from "../../zustand/cartStore";
 
 function Header() {
   const { user } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const totalQuantity = useCartStore((state) => state.totalQuantity()) || 0;
-  const clearCart = useCartStore((state) => state.clearCart); // ✅ Get clearCart function
+  // const clearCart = useCartStore((state) => state.clearCart); // ✅ Get clearCart function
 
   const handleLogout = () => {
     dispatch(logoutUser()).then(() => {
       console.log("token removed")
-      clearCart(); // ✅ 
+      // clearCart(); // ✅ 
       navigate("/login");
     });
   };
