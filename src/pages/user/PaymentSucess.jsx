@@ -5,7 +5,7 @@ import { useCartStore } from "../../zustand/cartStore";
 import { useOrderStore } from "../../zustand/orderStore";
 
 const PaymentSuccess = () => {
-  const { clearCart } = useCartStore();
+  // const { clearCart } = useCartStore();
   const { createOrder } = useOrderStore();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
@@ -24,7 +24,7 @@ const PaymentSuccess = () => {
         const order = await createOrder({ shippingAddress });
 
         if (order?._id) {
-          clearCart();
+          // clearCart();
           localStorage.removeItem("shippingAddress");
 
           setTimeout(() => {
