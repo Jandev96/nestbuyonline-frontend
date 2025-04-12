@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { useCartStore } from "../../zustand/cartStore";
+import { useCartStore } from "../../zustand/cartStore.js";
 import { loadStripe } from "@stripe/stripe-js";
-import { axiosInstance } from "../../config/axiosInstance";
+import { axiosInstance } from "../../config/axiosInstance.js";
 import { Link, useNavigate } from "react-router-dom";
 
 function Cart() {

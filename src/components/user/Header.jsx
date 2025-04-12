@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { logoutUser } from "../../redux/slices/userSlice";
 import DarkMode from "../../pages/shared/DarkMode";
-// import { useCartStore } from "../../zustand/cartStore";
+import { useCartStore } from "../../zustand/cartStore";
 
 function Header() {
   const { user } = useSelector((state) => state.user);
