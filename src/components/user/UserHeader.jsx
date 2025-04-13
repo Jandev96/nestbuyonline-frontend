@@ -85,7 +85,11 @@ function UserHeader() {
 
               {user ? (
                 <div className="dropdown dropdown-end ml-2">
-                  <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
+                  <div
+                    tabIndex={0}
+                    role="button"
+                    className="btn btn-ghost btn-circle avatar"
+                  >
                     <div className="w-10 rounded-full border-2 border-blue-500 shadow-lg">
                       <img
                         alt="Profile"
@@ -97,9 +101,17 @@ function UserHeader() {
                     tabIndex={0}
                     className="menu menu-sm dropdown-content mt-3 w-52 p-2 rounded-lg bg-gray-900/90 text-white shadow-lg border border-gray-700"
                   >
-                    <li><Link to="/profile">Profile</Link></li>
                     <li>
-                      <button onClick={handleLogout} className="text-red-400 hover:text-red-300">
+                      <Link to="/profile">Profile</Link>
+                    </li>
+                    <li>
+                      <Link to="/orders">Orders</Link>
+                    </li>
+                    <li>
+                      <button
+                        onClick={handleLogout}
+                        className="text-red-400 hover:text-red-300"
+                      >
                         Logout
                       </button>
                     </li>
@@ -107,7 +119,9 @@ function UserHeader() {
                 </div>
               ) : (
                 <div className="flex gap-2">
-                  <NavbarButton href="/login" variant="secondary">Login</NavbarButton>
+                  <NavbarButton href="/login" variant="secondary">
+                    Login
+                  </NavbarButton>
                   <NavbarButton href="/signup">Sign Up</NavbarButton>
                 </div>
               )}
@@ -143,7 +157,10 @@ function UserHeader() {
                   </span>
                 )}
               </Link>
-              <MobileNavToggle isOpen={menuOpen} onClick={() => setMenuOpen(!menuOpen)} />
+              <MobileNavToggle
+                isOpen={menuOpen}
+                onClick={() => setMenuOpen(!menuOpen)}
+              />
             </div>
           </div>
         </MobileNavHeader>
@@ -162,7 +179,12 @@ function UserHeader() {
 
           {user ? (
             <>
-              <Link to="/profile" onClick={() => setMenuOpen(false)}>Profile</Link>
+              <Link to="/profile" onClick={() => setMenuOpen(false)}>
+                Profile
+              </Link>
+              <Link to="/orders" onClick={() => setMenuOpen(false)}>
+                Orders
+              </Link>
               <button
                 onClick={() => {
                   handleLogout();
@@ -175,8 +197,12 @@ function UserHeader() {
             </>
           ) : (
             <>
-              <Link to="/login" onClick={() => setMenuOpen(false)}>Login</Link>
-              <Link to="/signup" onClick={() => setMenuOpen(false)}>Sign Up</Link>
+              <Link to="/login" onClick={() => setMenuOpen(false)}>
+                Login
+              </Link>
+              <Link to="/signup" onClick={() => setMenuOpen(false)}>
+                Sign Up
+              </Link>
             </>
           )}
         </MobileNavMenu>

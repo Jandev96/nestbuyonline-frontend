@@ -1,6 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import{RootLayout} from "../layout/RootLayout";
-import AdminLayout from "../layout/AdminLayout"; // ✅ Import Admin Layout
+import AdminLayout from "../layout/AdminLayout";
 import AdminProtectedRoute from "./adminProtectedRoute";
 import AdminDashboard from "../pages/admin/AdminDashboard";
 import ManageUsers from "../pages/admin/ManageUsers";
@@ -21,6 +21,8 @@ import AddProduct from "../components/admin/AddProduct";
 import AdminProductList from "../pages/admin/AdminProductList";
 import AdminEditProduct from "../pages/admin/AdminEditProduct";
 import OrderDetailsPage from "../pages/user/OrderDetailsPage";
+import UserOrders from "../pages/user/UserOrders";
+import AdminOrders from "../pages/admin/AdminOrders";
 
 export const router = createBrowserRouter([
   {
@@ -42,22 +44,11 @@ export const router = createBrowserRouter([
           { path: "profile", element: <ProfilePage /> },
           { path: "payment", element: <Payment /> },
           { path: "cart", element: <Cart /> },
-          {
-            path: "payment",
-            element: <h1>payment</h1>,
-        },
-        {
-            path: "user/payment/success",
-            element: <PaymentSuccess />,
-        },
-        {
-            path: "payment/cancel",
-            element: <h1>Payment Cancelled </h1>,
-        },
-        {
-          path: "orders/:id",
-          element: <OrderDetailsPage />, // ✅ ADD THIS LINE
-        },
+          { path: "payment", element: <h1>payment</h1> },
+          { path: "user/payment/success", element: <PaymentSuccess /> },
+          { path: "payment/cancel", element: <h1>Payment Cancelled </h1> },
+          { path: "orders/:id", element: <OrderDetailsPage /> },
+          { path: "orders", element: <UserOrders /> },
         ],
       },
     ],
@@ -69,18 +60,18 @@ export const router = createBrowserRouter([
   },
 
   {
-    path: "/admin",
+    path: "admin",
     element: <AdminProtectedRoute />,
     children: [
       {
-        element: <AdminLayout />, // ✅ Wrap admin routes with AdminLayout
+        element: <AdminLayout />, // 🔒 Shared layout with sidebar
         children: [
           { path: "dashboard", element: <AdminDashboard /> },
           { path: "manage-users", element: <ManageUsers /> },
-          { path: "/admin/add-product", element: <AddProduct /> },
-          {path:"/admin/edit-products", element: <AdminProductList />  },
-          {path:"/admin/edit-product/:productId", element: <AdminEditProduct />  }
-
+          { path: "add-product", element: <AddProduct /> },
+          { path: "edit-products", element: <AdminProductList /> },
+          { path: "edit-product/:productId", element: <AdminEditProduct /> },
+          { path: "orders", element: <AdminOrders /> },
         ],
       },
     ],
