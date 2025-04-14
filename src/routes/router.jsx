@@ -23,6 +23,7 @@ import AdminEditProduct from "../pages/admin/AdminEditProduct";
 import OrderDetailsPage from "../pages/user/OrderDetailsPage";
 import UserOrders from "../pages/user/UserOrders";
 import AdminOrders from "../pages/admin/AdminOrders";
+import AdminCustomers from "../pages/admin/AdminCustomers";
 
 export const router = createBrowserRouter([
   {
@@ -72,6 +73,9 @@ export const router = createBrowserRouter([
           { path: "edit-products", element: <AdminProductList /> },
           { path: "edit-product/:productId", element: <AdminEditProduct /> },
           { path: "orders", element: <AdminOrders /> },
+          { path: "/admin/customers", element: <AdminCustomers /> },
+          
+
         ],
       },
     ],

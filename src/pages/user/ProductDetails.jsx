@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import useFetch from "../../hooks/useFetch";
-import { useParams } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useParams, Link } from "react-router-dom";
 import { useCartStore } from "../../zustand/cartStore";
-import { Link } from "react-router-dom";
+import useFetch from "../../hooks/useFetch";
+import useReviewStore from "../../zustand/useReviewStore";
 
 function ProductDetails() {
   const { id } = useParams();
@@ -13,10 +13,35 @@ function ProductDetails() {
   const [selectedImage, setSelectedImage] = useState(product?.images?.[0] || "");
   const [pincode, setPincode] = useState("560002");
   const [quantity, setQuantity] = useState(1);
+  const [comment, setComment] = useState("");
+  const [rating, setRating] = useState(5);
+
+  const {
+    fetchReviews,
+    addReview,
+    reviews,
+    loading,
+    error: reviewError,
+    successMessage,
+    clearMessages,
+  } = useReviewStore();
+
+  useEffect(() => {
+    if (id) {
+      fetchReviews(id);
+    }
+  }, [id]);
 
   const increaseQuantity = () => setQuantity((prev) => prev + 1);
   const decreaseQuantity = () => {
     if (quantity > 1) setQuantity((prev) => prev - 1);
+  };
+
+  const handleSubmitReview = async (e) => {
+    e.preventDefault();
+    await addReview({ productId: id, rating, comment });
+    setComment("");
+    setRating(5);
   };
 
   if (isLoading) return <h2 className="text-center mt-10">Loading...</h2>;
@@ -120,6 +145,64 @@ function ProductDetails() {
             ? product.specifications.split(",").map((item, idx) => <li key={idx}>{item.trim()}</li>)
             : <li>Standard Size, Lightweight, Durable</li>}
         </ul>
+      </div>
+
+      {/* Reviews Section */}
+      <div className="mt-16 border-t pt-10">
+        <h2 className="text-xl font-bold mb-4">Customer Reviews</h2>
+
+        {/* Review Form */}
+        <form onSubmit={handleSubmitReview} className="mb-6">
+          <div className="mb-4">
+            <label className="block font-medium mb-1">Rating:</label>
+            <select
+              className="select select-bordered w-full max-w-xs"
+              value={rating}
+              onChange={(e) => setRating(Number(e.target.value))}
+            >
+              {[5, 4, 3, 2, 1].map((r) => (
+                <option key={r} value={r}>
+                  {r} Star{r > 1 && "s"}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="mb-4">
+            <label className="block font-medium mb-1">Comment:</label>
+            <textarea
+              className="textarea textarea-bordered w-full"
+              value={comment}
+              onChange={(e) => setComment(e.target.value)}
+              rows="3"
+              required
+            ></textarea>
+          </div>
+          <button type="submit" className="btn btn-primary">
+            Submit Review
+          </button>
+        </form>
+
+        {/* Feedback Messages */}
+        {loading && <p className="text-blue-500">Loading reviews...</p>}
+        {reviewError && <p className="text-red-500">{reviewError}</p>}
+        {successMessage && <p className="text-green-500">{successMessage}</p>}
+
+        {/* Review List or Empty State */}
+        {reviews && reviews.length > 0 ? (
+          <div className="mt-6 space-y-4">
+            {reviews.map((review) => (
+              <div key={review._id} className="border p-4 rounded-lg shadow-sm">
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="font-semibold">{review.userId?.username || "User"}</span>
+                  <span className="text-yellow-500">{"⭐".repeat(review.rating)}</span>
+                </div>
+                <p className="text-gray-700">{review.comment}</p>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <p className="text-gray-500">No reviews found for this product.</p>
+        )}
       </div>
     </div>
   );
