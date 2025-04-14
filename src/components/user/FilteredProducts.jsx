@@ -117,8 +117,8 @@ function FilteredProducts() {
 
       <div className="drawer-side z-40">
         <label htmlFor="product-drawer" className="drawer-overlay"></label>
-        <div className="menu p-4 w-80 min-h-full bg-base-200 text-base-content">
-          <h2 className="text-lg font-semibold mb-4">Search</h2>
+        <div className="menu p-4 w-80 min-h-full bg-blue-950/85 backdrop-blur-md border border-white/30 text-base-content shadow-[15px_0_30px_-10px_rgba(0,0,0,0.3)]">
+          <h2 className="text-lg font-semibold mb-4 text-white">Search</h2>
           <input
             type="text"
             placeholder="Search products..."
@@ -127,11 +127,11 @@ function FilteredProducts() {
             onChange={(e) => setSearchTerm(e.target.value)}
           />
 
-          <h2 className="text-lg font-semibold mb-2">Categories</h2>
-          <div className="flex flex-col gap-2 mb-4">
+          <h2 className="text-lg text-white font-semibold mb-2">Categories</h2>
+          <div className="flex flex-col gap-2 mb-4 text-white">
             {categories.map((cat) => (
-              <label key={cat} className="flex items-center gap-2">
-                <input
+              <label key={cat} className="flex items-center gap-2 ">
+                <input style={{color:"black", background:"white"}}
                   type="checkbox"
                   className="checkbox"
                   checked={selectedCategory.includes(cat)}

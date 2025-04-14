@@ -7,7 +7,7 @@ const menuItems = [
   { name: "Orders", path: "/admin/orders" },
   { name: "Transaction", path: "#" },
   { name: "Manage Admins", path: "#" },
-  { name: "Customers", path: "#" },
+  { name: "Customers", path: "/admin/customers" },
   { name: "Settings", path: "#" },
   { name: "Help", path: "#" },
   { name: "Logout", path: "#" },
