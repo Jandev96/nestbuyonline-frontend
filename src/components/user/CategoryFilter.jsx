@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useProductStore } from "../../zustand/productStore";
 import { Slider } from "@mui/material";
 import { FaSearch, FaTimes } from "react-icons/fa";
+import { Links } from "react-router-dom";
+
 
 const categories = [
   "Electronics",
@@ -86,12 +88,12 @@ const CategoryFilter = () => {
       </div>
 
       {/* Apply Filters Button */}
-      <button
+      <Links
         className="mt-4 bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 w-full rounded-lg"
         onClick={applyFilters}
       >
         Apply Filters
-      </button>
+      </Links>
     </div>
   );
 };

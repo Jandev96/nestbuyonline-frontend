@@ -11,6 +11,7 @@ export default function ProfilePage() {
     password: "",
     newPassword: "",
     confirmNewPassword: "",
+    profilePic: null,
   });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -22,14 +23,12 @@ export default function ProfilePage() {
       try {
         const response = await axiosInstance.get("/user/profile");
         setUser(response.data.data);
-        setForm({
+        setForm((prev) => ({
+          ...prev,
           username: response.data.data.username || "",
           email: response.data.data.email || "",
           address: response.data.data.address || "",
-          password: "",
-          newPassword: "",
-          confirmNewPassword: "",
-        });
+        }));
       } catch (err) {
         setError("Failed to load profile. Please login again.");
       } finally {
@@ -64,14 +63,22 @@ export default function ProfilePage() {
     }
 
     try {
-      const payload = {
-        username: form.username,
-        email: form.email,
-        address: form.address,
-        password: form.newPassword || form.password,
-      };
+      const formData = new FormData();
+      formData.append("username", form.username);
+      formData.append("email", form.email);
+      formData.append("address", form.address);
+      formData.append("password", form.newPassword || form.password);
 
-      const response = await axiosInstance.put("/user/update", payload);
+      if (form.profilePic) {
+        formData.append("profilePic", form.profilePic);
+      }
+
+      const response = await axiosInstance.put("/user/update", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
       setSuccess(response.data.message);
       setUser(response.data.data);
     } catch (err) {
@@ -84,16 +91,13 @@ export default function ProfilePage() {
 
   return (
     <div className="min-h-screen bg-gray-100 px-4 py-15">
-      {/* Drawer for mobile */}
       <div className="drawer lg:drawer-open">
         <input id="profile-drawer" type="checkbox" className="drawer-toggle" />
         <div className="drawer-content flex flex-col gap-6 lg:flex-row">
-          {/* Drawer Button for mobile */}
           <label htmlFor="profile-drawer" className="btn btn-primary drawer-button lg:hidden mb-4">
             Open Menu
           </label>
 
-          {/* Main Form */}
           <form onSubmit={handleSubmit} className="w-full bg-white rounded-md shadow-sm p-6 sm:p-8">
             <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-6">
               <h2 className="text-xl font-semibold text-red-500">Edit Your Profile</h2>
@@ -136,6 +140,23 @@ export default function ProfilePage() {
                   className="w-full input input-bordered"
                   required
                 />
+              </div>
+
+              <div className="sm:col-span-2">
+                <label className="block text-sm font-medium text-gray-700 mb-1">Profile Picture</label>
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={(e) => setForm({ ...form, profilePic: e.target.files[0] })}
+                  className="file-input file-input-bordered w-full"
+                />
+                {user?.profilePic && (
+                  <img
+                    src={user.profilePic}
+                    alt="Current Profile"
+                    className="w-20 h-20 object-cover rounded-full mt-2 border"
+                  />
+                )}
               </div>
 
               <div className="sm:col-span-2 text-sm text-gray-700 mt-2">Password</div>
@@ -183,7 +204,6 @@ export default function ProfilePage() {
           </form>
         </div>
 
-        {/* Drawer sidebar */}
         <div className="drawer-side">
           <label htmlFor="profile-drawer" className="drawer-overlay"></label>
           <div className="menu bg-base-200 text-base-content min-h-full w-80 p-4">
