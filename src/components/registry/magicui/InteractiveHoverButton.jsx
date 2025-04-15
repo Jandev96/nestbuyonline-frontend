@@ -1,11 +1,12 @@
 import React from "react";
 import { ArrowRight } from "lucide-react";
 import { cn } from "../../../lib/utils";
+import { Link } from "react-router-dom";
 
 const InteractiveHoverButton = React.forwardRef(
   ({ children, className, ...props }, ref) => {
     return (
-      <button
+      <Link
         ref={ref}
         className={cn(
           "group relative inline-flex items-center overflow-hidden rounded-full border border-primary bg-background px-6 py-2 text-sm font-semibold text-primary shadow-md transition-all hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2",
@@ -24,7 +25,7 @@ const InteractiveHoverButton = React.forwardRef(
           <span>{children}</span>
           <ArrowRight className="w-4 h-4" />
         </div>
-      </button>
+      </Link>
     );
   }
 );
