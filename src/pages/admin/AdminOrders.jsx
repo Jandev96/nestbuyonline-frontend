@@ -1,16 +1,27 @@
 import React, { useEffect, useState } from "react";
 import { useOrderStore } from "../../zustand/orderStore";
 
+const getStatusColor = (status) => {
+  switch (status) {
+    case "Delivered": return "bg-green-500";
+    case "Pending": return "bg-yellow-500";
+    case "Cancelled": return "bg-red-500";
+    case "Processing": return "bg-blue-400";
+    case "Shipped": return "bg-purple-500";
+    default: return "bg-gray-400";
+  }
+};
+
 const AdminOrders = () => {
   const {
     fetchAllOrders,
-    updateOrderStatus, // ⬅️ make sure this is in your store
+    updateOrderStatus,
     orders,
     loading,
     error,
   } = useOrderStore();
 
-  const [statusUpdates, setStatusUpdates] = useState({}); // track status changes per order
+  const [statusUpdates, setStatusUpdates] = useState({});
 
   useEffect(() => {
     fetchAllOrders();
@@ -21,75 +32,62 @@ const AdminOrders = () => {
   };
 
   const handleUpdateClick = (orderId) => {
-    const status = statusUpdates[orderId];
-    if (!status) return;
-    updateOrderStatus(orderId, status);
+    const newStatus = statusUpdates[orderId];
+    if (!newStatus) return;
+    updateOrderStatus(orderId, newStatus);
   };
 
+  if (loading) return <div className="p-6">Loading orders...</div>;
+  if (error) return <div className="p-6 text-red-500">{error}</div>;
+  console.log(orders,"===orders admin")
+
   return (
-    <div className="p-6">
-      <h2 className="text-2xl font-bold mb-4">All Orders</h2>
+    <div className="p-6 space-y-4">
+      <h2 className="text-2xl font-bold mb-4">Admin Orders</h2>
 
-      {loading && <p>Loading orders...</p>}
-      {error && <p className="text-red-500">{error}</p>}
 
-      <div className="overflow-x-auto">
-        <table className="min-w-full bg-white shadow-md rounded-md overflow-hidden">
-          <thead className="bg-gray-100">
-            <tr>
-              <th className="p-3 text-left">Customer</th>
-              <th className="p-3 text-left">Email</th>
-              <th className="p-3 text-left">Date</th>
-              <th className="p-3 text-left">Status</th>
-              <th className="p-3 text-left">Total</th>
-              <th className="p-3 text-left">Products</th>
-              <th className="p-3 text-left">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {orders.map((order) => (
-              <tr key={order._id} className="border-t">
-                <td className="p-3">{order.customerId?.username}</td>
-                <td className="p-3">{order.customerId?.email}</td>
-                <td className="p-3">
-                  {new Date(order.orderDate).toLocaleDateString()}
-                </td>
-                <td className="p-3">
-                  <select
-                    value={statusUpdates[order._id] || order.status}
-                    onChange={(e) =>
-                      handleStatusChange(order._id, e.target.value)
-                    }
-                    className="border rounded px-2 py-1 text-sm"
-                  >
-                    <option value="Pending">Pending</option>
-                    <option value="Processing">Processing</option>
-                    <option value="Shipped">Shipped</option>
-                    <option value="Delivered">Delivered</option>
-                    <option value="Cancelled">Cancelled</option>
-                  </select>
-                </td>
-                <td className="p-3">${order.totalPrice.toFixed(2)}</td>
-                <td className="p-3">
-                  {order.products.map((p) => (
-                    <div key={p.productId?._id} className="text-sm">
-                      {p.productId?.name} × {p.quantity}
-                    </div>
-                  ))}
-                </td>
-                <td className="p-3">
-                  <button
-                    onClick={() => handleUpdateClick(order._id)}
-                    className="text-sm px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600"
-                  >
-                    Update
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+      {orders.map((order) => (
+        <div key={order._id} className="bg-white shadow-md rounded-lg p-4 flex items-start gap-4">
+          <img
+            src={order.products[0]?.productId?.images}
+            alt="Product"
+            className="w-20 h-20 object-cover rounded"
+          />
+          <div className="flex-1">
+            <h3 className="font-bold">{order.products[0]?.productId?.name}</h3>
+            <p className="text-sm text-gray-600">Availability: <span className="text-green-600">In stock</span></p>
+            <p className="text-sm text-gray-600">User: <span className="font-semibold capitalize">{order.customerId.username || 'N/A'}</span></p>
+            <p className="text-sm text-gray-600">
+              MRP: <span >₹{order.products[0]?.productId?.price?.toLocaleString()}</span>{" "}
+              <span className="text-red-500">{order.products[0]?.productId?.discountPrice?.toLocaleString()}</span>
+            </p>
+          </div>
+
+          <div className="flex items-center gap-2">
+            <span className={`w-4 h-4 rounded-full ${getStatusColor(order.status)}`}></span>
+            <p className="text-sm">{order.status}</p>
+          </div>
+
+          <button
+            onClick={() => handleUpdateClick(order._id)}
+            className="ml-auto bg-black text-white px-4 py-1 text-sm rounded hover:bg-gray-800"
+          >
+            Status
+          </button>
+
+          <select
+            className="ml-2 border px-2 py-1 text-sm rounded"
+            value={statusUpdates[order._id] || order.status}
+            onChange={(e) => handleStatusChange(order._id, e.target.value)}
+          >
+            <option value="Pending">Pending</option>
+            <option value="Processing">Processing</option>
+            <option value="Shipped">Shipped</option>
+            <option value="Delivered">Delivered</option>
+            <option value="Cancelled">Cancelled</option>
+          </select>
+        </div>
+      ))}
     </div>
   );
 };

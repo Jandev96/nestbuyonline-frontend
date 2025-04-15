@@ -43,7 +43,7 @@ const DealsOfTheDay = () => {
       title: "Gaming Console",
       description: "Starts from ₹15,990",
       image: "https://i.pinimg.com/736x/38/9a/0d/389a0d4da4eb83eeeaa68fe7a561ea72.jpg",
-      className: "md:col-span-3",
+      className: "md:col-span-3 ",
     },
   ];
 
