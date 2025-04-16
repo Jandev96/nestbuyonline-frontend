@@ -47,6 +47,8 @@ function UserHeader() {
     { name: "Shop", link: "/products" },
     { name: "About", link: "/about" },
     { name: "Contact", link: "/contact" },
+    {name:"Wishlist", link:"/wishlist"}
+    
 
   ];
 
