@@ -24,7 +24,7 @@ import OrderDetailsPage from "../pages/user/OrderDetailsPage";
 import UserOrders from "../pages/user/UserOrders";
 import AdminOrders from "../pages/admin/AdminOrders";
 import AdminCustomers from "../pages/admin/AdminCustomers";
-import Wishlist from "../pages/user/WishList";
+import Wishlist from "../pages/user/Wishlist";
 
 export const router = createBrowserRouter([
   {
