@@ -68,7 +68,7 @@ export default function Wishlist() {
                   </td>
                   <td className="py-4 px-2 flex items-center gap-4">
                     <img
-                      src={item.productId.images?.[0] || "/images/placeholder.png"} // Fallback to local placeholder
+                      src={item.productId.images?.[0] || "https://via.placeholder.com/60x80?text=Image"}
                       alt={item.productId.name}
                       className="w-[60px] h-[80px] object-cover border rounded"
                     />
