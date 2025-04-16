@@ -62,6 +62,7 @@ export const NavItems = ({ items, onItemClick }) => (
 // Logo component
 export const NavbarLogo = () => (
   <Link to="/" className="text-xl font-bold  text-white">
+    
     NestBuy
   </Link>
 );

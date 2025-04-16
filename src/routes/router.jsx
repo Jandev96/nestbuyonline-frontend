@@ -24,6 +24,7 @@ import OrderDetailsPage from "../pages/user/OrderDetailsPage";
 import UserOrders from "../pages/user/UserOrders";
 import AdminOrders from "../pages/admin/AdminOrders";
 import AdminCustomers from "../pages/admin/AdminCustomers";
+import Wishlist from "../pages/user/WishList";
 
 export const router = createBrowserRouter([
   {
@@ -50,6 +51,7 @@ export const router = createBrowserRouter([
           { path: "payment/cancel", element: <h1>Payment Cancelled </h1> },
           { path: "orders/:id", element: <OrderDetailsPage /> },
           { path: "orders", element: <UserOrders /> },
+          {path:"/wishlist",element: <Wishlist />   }
         ],
       },
     ],

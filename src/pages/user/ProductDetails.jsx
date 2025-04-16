@@ -3,6 +3,7 @@ import { useParams, Link } from "react-router-dom";
 import { useCartStore } from "../../zustand/cartStore";
 import useFetch from "../../hooks/useFetch";
 import useReviewStore from "../../zustand/useReviewStore";
+import useWishlistStore from "../../zustand/useWishlistStore";
 
 function ProductDetails() {
   const { id } = useParams();
@@ -10,21 +11,14 @@ function ProductDetails() {
   const [productdetails, isLoading, error] = useFetch(`/product/products/${id}`);
   const product = productdetails?.displaySingleProduct;
 
+  const addToWishlist = useWishlistStore((state) => state.addToWishlist);
+  const { fetchReviews, addReview, reviews, loading, error: reviewError, successMessage } = useReviewStore();
+
   const [selectedImage, setSelectedImage] = useState(product?.images?.[0] || "");
   const [pincode, setPincode] = useState("560002");
   const [quantity, setQuantity] = useState(1);
   const [comment, setComment] = useState("");
   const [rating, setRating] = useState(5);
-
-  const {
-    fetchReviews,
-    addReview,
-    reviews,
-    loading,
-    error: reviewError,
-    successMessage,
-    clearMessages,
-  } = useReviewStore();
 
   useEffect(() => {
     if (id) {
@@ -112,7 +106,12 @@ function ProductDetails() {
             >
               Add to Cart
             </Link>
-            <button className="btn btn-outline">Wishlist</button>
+            <button
+              className="btn btn-outline"
+              onClick={() => addToWishlist(product._id)}
+            >
+              Wishlist
+            </button>
           </div>
 
           {/* Delivery Info */}

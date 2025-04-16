@@ -47,6 +47,7 @@ function UserHeader() {
     { name: "Shop", link: "/products" },
     { name: "About", link: "/about" },
     { name: "Contact", link: "/contact" },
+
   ];
 
   return (
@@ -106,6 +107,9 @@ function UserHeader() {
                     </li>
                     <li>
                       <Link to="/orders">Orders</Link>
+                    </li>
+                    <li>
+                      <Link to="/wishlist">wishlist</Link>
                     </li>
                     <li>
                       <button
