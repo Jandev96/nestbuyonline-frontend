@@ -1,6 +1,7 @@
 import React from "react";
 import { BentoGrid, BentoGridItem } from "./BentoGrid"; // Adjust path if needed
 import { InteractiveHoverButton } from "../registry/magicui/InteractiveHoverButton"; // Ensure correct path
+import { useNavigate } from "react-router-dom";
 
 const DealsOfTheDay = () => {
   const Skeleton = ({ image }) => (
@@ -13,6 +14,8 @@ const DealsOfTheDay = () => {
       />
     </div>
   );
+
+  const navigate= useNavigate()
 
   const deals = [
     {
@@ -61,12 +64,12 @@ const DealsOfTheDay = () => {
         </h2>
         
         <InteractiveHoverButton
-          onClick={() => {
-            window.location.href = "/products"; // Replace with useNavigate if using react-router-dom
-          }}
-        >
-          Shop Now
-        </InteractiveHoverButton>
+      onClick={() => {
+        navigate("/products"); // SPA-style navigation (no refresh)
+      }}
+    >
+      Shop Now
+    </InteractiveHoverButton>
       </div>
 
       {/* Deals Grid */}

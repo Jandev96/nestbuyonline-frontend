@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { logoutUser } from "../../redux/slices/userSlice";
-import DarkMode from "../../pages/shared/DarkMode";
+import { logoutUser, saveUser } from "../../redux/slices/userSlice";
+import { useUserStore } from "../../zustand/userStore";
 import { useCartStore } from "../../zustand/cartStore";
+import DarkMode from "../../pages/shared/DarkMode";
 
 import {
   Navbar,
@@ -21,18 +22,34 @@ function UserHeader() {
   const { user } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const { fetchCurrentUser } = useUserStore();
+  const { user: zustandUser, isUserAuth } = useUserStore();
+
   const totalQuantity = useCartStore((state) => state.totalQuantity()) || 0;
   const clearCart = useCartStore((state) => state.clearCart);
 
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
-  const handleLogout = () => {
+  const handleLogout = (e) => {
+    e.preventDefault(); // Prevent default behavior
     dispatch(logoutUser()).then(() => {
       clearCart();
       navigate("/login");
     });
   };
+
+  useEffect(() => {
+    const hydrateUserFromToken = async () => {
+      const result = await fetchCurrentUser();
+      if (result && result.profile) {
+        dispatch(saveUser({ user: result.profile, isUserAuth: true }));
+      }
+    };
+
+    hydrateUserFromToken();
+  }, [dispatch, fetchCurrentUser]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -47,9 +64,7 @@ function UserHeader() {
     { name: "Shop", link: "/products" },
     { name: "About", link: "/about" },
     { name: "Contact", link: "/contact" },
-    {name:"Wishlist", link:"/wishlist"}
-    
-
+    { name: "Wishlist", link: "/wishlist" },
   ];
 
   return (
@@ -111,7 +126,7 @@ function UserHeader() {
                       <Link to="/orders">Orders</Link>
                     </li>
                     <li>
-                      <Link to="/wishlist">wishlist</Link>
+                      <Link to="/wishlist">Wishlist</Link>
                     </li>
                     <li>
                       <button
@@ -165,7 +180,10 @@ function UserHeader() {
               </Link>
               <MobileNavToggle
                 isOpen={menuOpen}
-                onClick={() => setMenuOpen(!menuOpen)}
+                onClick={(e) => {
+                  e.preventDefault(); // Prevent default behavior
+                  setMenuOpen(!menuOpen);
+                }}
               />
             </div>
           </div>
@@ -176,7 +194,11 @@ function UserHeader() {
             <Link
               key={idx}
               to={item.link}
-              onClick={() => setMenuOpen(false)}
+              onClick={(e) => {
+                e.preventDefault(); // Prevent default behavior of link
+                setMenuOpen(false);
+                navigate(item.link); // Manually handle navigation
+              }}
               className="py-2 px-4 hover:bg-gray-700 rounded w-full"
             >
               {item.name}
@@ -192,8 +214,8 @@ function UserHeader() {
                 Orders
               </Link>
               <button
-                onClick={() => {
-                  handleLogout();
+                onClick={(e) => {
+                  handleLogout(e);
                   setMenuOpen(false);
                 }}
                 className="py-2 px-4 text-red-400 hover:text-red-300"
