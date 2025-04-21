@@ -19,16 +19,12 @@ import {
 } from "../registry/magicui/AnimatedNavbar";
 
 function UserHeader() {
-  
+  const { user } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-
-
-
- const user = useUserStore((state) => state.user);
-  const getProfile = useUserStore((state) => state.getProfile);
-
+  const { fetchCurrentUser } = useUserStore();
+  const { user: zustandUser, isUserAuth } = useUserStore();
 
   const totalQuantity = useCartStore((state) => state.totalQuantity()) || 0;
   const clearCart = useCartStore((state) => state.clearCart);
@@ -45,11 +41,15 @@ function UserHeader() {
   };
 
   useEffect(() => {
-    getProfile()
-  },{})
-   
-  console.log(user,"zustand user")
-  console.log(getProfile,"zustand get profile")
+    const hydrateUserFromToken = async () => {
+      const result = await fetchCurrentUser();
+      if (result && result.profile) {
+        dispatch(saveUser({ user: result.profile, isUserAuth: true }));
+      }
+    };
+
+    hydrateUserFromToken();
+  }, [dispatch, fetchCurrentUser]);
 
   useEffect(() => {
     const handleScroll = () => {
