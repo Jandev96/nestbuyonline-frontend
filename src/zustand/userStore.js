@@ -9,6 +9,32 @@ export const useUserStore = create((set, get) => ({
   loading: false,
   error: null,
 
+  login: async (credentials) => {
+    try {
+      const res = await axiosInstance.post('/user/login', credentials, {
+        withCredentials: true,
+      });
+      console.log(res,"login res")
+      set({ user: res.data.user });
+    } catch (err) {
+      console.error('Login failed:', err);
+    }
+  },
+  getProfile: async () => {
+    try {
+      const res = await axiosInstance.get('user/profile', {
+        withCredentials: true,
+      });
+      console.log(res,"profile res")
+      set({ user: res.data.data });
+    } catch (err) {
+      console.error('Fetching profile failed:', err);
+      set({ user: null }); // clear user if token is invalid
+    }
+  },
+
+
+
   // ✅ Fetch all users
   fetchAllUsers: async () => {
     set({ loading: true });
